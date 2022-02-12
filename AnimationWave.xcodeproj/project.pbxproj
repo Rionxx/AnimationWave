@@ -14,6 +14,7 @@
 		EA3F484D27B797DE005390FC /* AnimationWaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3F484C27B797DE005390FC /* AnimationWaveTests.swift */; };
 		EA3F485727B797DE005390FC /* AnimationWaveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3F485627B797DE005390FC /* AnimationWaveUITests.swift */; };
 		EA3F485927B797DE005390FC /* AnimationWaveUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3F485827B797DE005390FC /* AnimationWaveUITestsLaunchTests.swift */; };
+		EA3F486727B79912005390FC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3F486627B79912005390FC /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		EA3F485227B797DE005390FC /* AnimationWaveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimationWaveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA3F485627B797DE005390FC /* AnimationWaveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationWaveUITests.swift; sourceTree = "<group>"; };
 		EA3F485827B797DE005390FC /* AnimationWaveUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationWaveUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EA3F486627B79912005390FC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +96,8 @@
 		EA3F483A27B797DD005390FC /* AnimationWave */ = {
 			isa = PBXGroup;
 			children = (
+				EA3F486527B79900005390FC /* View */,
 				EA3F483B27B797DD005390FC /* AnimationWaveApp.swift */,
-				EA3F483D27B797DD005390FC /* ContentView.swift */,
 				EA3F483F27B797DE005390FC /* Assets.xcassets */,
 				EA3F484127B797DE005390FC /* Preview Content */,
 			);
@@ -125,6 +127,15 @@
 				EA3F485827B797DE005390FC /* AnimationWaveUITestsLaunchTests.swift */,
 			);
 			path = AnimationWaveUITests;
+			sourceTree = "<group>";
+		};
+		EA3F486527B79900005390FC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EA3F483D27B797DD005390FC /* ContentView.swift */,
+				EA3F486627B79912005390FC /* HomeView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA3F486727B79912005390FC /* HomeView.swift in Sources */,
 				EA3F483E27B797DD005390FC /* ContentView.swift in Sources */,
 				EA3F483C27B797DD005390FC /* AnimationWaveApp.swift in Sources */,
 			);
