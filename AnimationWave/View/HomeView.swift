@@ -20,7 +20,7 @@ struct HomeView: View {
             
             Text("Rion")
                 .fontWeight(.semibold)
-                .foregroundColor(Color.orange)
+                .foregroundColor(Color.black)
             
             // MARK: Wave Form
             GeometryReader { proxy in
@@ -35,14 +35,55 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(.white)
                         .scaleEffect(x: 1.1, y: 1)
-                }
-                .frame(width: size.width, height: size.height, alignment: .center)
-            }
-            .frame(height: 350)
+                    
+                    // Flame Form Shape
+                    FlameWave(progress: 0.5, waveHeight: 0, offset: size.width)
+                        .fill(Color.orange)
+                        .mask {
+                            Image(systemName: "flame.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding(5)
+                        }
+                }.frame(width: size.width, height: size.height, alignment: .center)
+            }.frame(height: 350)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.green)
+    }
+}
+
+struct FlameWave: Shape {
+    var progress: CGFloat
+    var waveHeight: CGFloat
+    var offset: CGFloat
+    
+    var animationData: CGFloat {
+        get {offset}
+        set {offset = newValue}
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        return Path { path in
+            path.move(to: .zero)
+            
+            //MARK: Drawing Waves using Sine
+            let progressHeight: CGFloat = (1 - progress) * rect.height
+            let height = waveHeight * rect.height
+            
+            for value in stride(from: 0, to: rect.width, by: 2) {
+                let x: CGFloat = value
+                let sine: CGFloat = sin(Angle(degrees: value + offset).radians)
+                let y: CGFloat = progressHeight + (height * sine)
+                
+                path.addLine(to: CGPoint(x: x, y: y))
+            }
+            //Bottom Portion
+            path.addLine(to: CGPoint(x: rect.width, y: rect.height))
+            path.addLine(to: CGPoint(x: 0, y: rect.height))
+            
+        }
     }
 }
 
