@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State var progress: CGFloat = 0.5
+    @State var startAnimation: CGFloat = 0
+    
     var body: some View {
         VStack {
             Image("rion")
@@ -23,7 +26,7 @@ struct HomeView: View {
                 .foregroundColor(Color.black)
             
             // MARK: Wave Form
-            GeometryReader { proxy in
+            GeometryReader{proxy in
                 let size = proxy.size
                 
                 ZStack {
@@ -35,18 +38,73 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(.white)
                         .scaleEffect(x: 1.1, y: 1)
+                        .offset(y: -1)
                     
                     // Flame Form Shape
-                    FlameWave(progress: 0.5, waveHeight: 0, offset: size.width)
+                    FlameWave(progress: progress, waveHeight: 0.1, offset: startAnimation)
                         .fill(Color.orange)
+                        .overlay(content: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white.opacity(0.4))
+                                    .frame(width: 15, height: 15)
+                                    .offset(x: -40)
+                                
+                                Circle()
+                                    .fill(Color.white.opacity(0.5))
+                                    .frame(width: 15, height: 15)
+                                    .offset(x: 50, y: 30)
+                                
+                                Circle()
+                                    .fill(Color.white.opacity(0.3))
+                                    .frame(width: 25, height: 25)
+                                    .offset(x: -50, y: 80)
+                                
+                                Circle()
+                                    .fill(Color.white.opacity(0.3))
+                                    .frame(width: 25, height: 25)
+                                    .offset(x: -80, y: 70)
+                                
+                                Circle()
+                                    .fill(Color.white.opacity(0.5))
+                                    .frame(width: 25, height: 25)
+                                    .offset(x: 60, y: 100)
+                                
+                                Circle()
+                                    .fill(Color.white.opacity(0.5))
+                                    .frame(width: 25, height: 25)
+                                    .offset(x: -70, y: 10)
+                            }
+                        })
                         .mask {
                             Image(systemName: "flame.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .padding(5)
+                                .padding(15)
                         }
-                }.frame(width: size.width, height: size.height, alignment: .center)
-            }.frame(height: 350)
+                        .overlay(alignment: .bottom) {
+                            Button {
+                                progress += 0.01
+                            } label: {
+                                 Image(systemName: "plus")
+                                    .font(.system(size: 40, weight: .black))
+                                    .foregroundColor(Color.orange)
+                                    .shadow(radius: 2)
+                                    .padding(25)
+                                    .background(.white, in: Circle())
+                            }
+                            .offset(y: 40)
+                        }
+                }//ZStak
+                .frame(width: size.width, height: size.height, alignment: .center)
+                .onAppear {
+                    withAnimation(.linear(duration: 2).repeatForever(autoreverses: false)) {
+                        startAnimation = size.width
+                    }//withAnimation
+                }//onAppear
+            }
+            .frame(height: 350)
+            Slider(value: $progress)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -59,13 +117,13 @@ struct FlameWave: Shape {
     var waveHeight: CGFloat
     var offset: CGFloat
     
-    var animationData: CGFloat {
-        get {offset}
-        set {offset = newValue}
+    var animatableData: CGFloat {
+        get{offset}
+        set{offset = newValue}
     }
     
     func path(in rect: CGRect) -> Path {
-        return Path { path in
+        return Path{path in
             path.move(to: .zero)
             
             //MARK: Drawing Waves using Sine
